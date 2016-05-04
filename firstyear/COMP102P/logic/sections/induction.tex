@@ -1,1 +1,30 @@
-All about induction.
+Induction is all about proving some property for a given set. There are three types of induction you need to know about for this part of the course: Weak arithmetic induction, strong arithmetic induction and structured induction on formulas. Induction is used to prove those super-handy arithmetic sum formulae, amongst other stuff!
+
+\section{Weak Induction}
+
+Weak induction allows you to prove something, a property, about the set of natural numbers $\mathbb{N}$ (0,1,2,..) by going through a sequence of steps:
+
+\begin{enumerate}
+  \item {\bf Prove that the property holds true for some \gls{basecase}} --- usually $n=0$ or $n=1$. \\
+
+  This bit's pretty friendly, as you just need to substitute in the value on the left-hand side and show it's the same as if you put it in the right-hand side!
+  \item {\bf Proving that the property holds true for the \gls{inductivestep}} --- here we form an \gls{inductivehypothesis} where you assume that the property holds true for $n=k$, which we then use to try and show that if the property holds for $n=k$ then it must also hold for $n=k+1$ as a result. \\
+
+  This is the trickier bit! Here you generally take the expression for $k+1$ and separate it from that of $k$, as it's assumed that the property is true for $k$. Once separated, you just need to do to do a bit of rearrangement magic to show you can the property for $k+1$ using the property for $k$ and the expression for $k+1$.
+  \item {\bf Conclude that the property holds for all $n\in\mathbb{N}$ greater than the base case as it is proven to hold for the \gls{basecase} and through the \gls{inductivestep}} --- this is just a bit of formal maths talk saying, look we've proved it works if the previous one works and because we proved the first one works they should all work!
+\end{enumerate}
+
+\noindent
+{\bf A more formal explanation:} In general, suppose that we wish to prove some property $P(n)$ for all $n\in\mathbb{N}$ where $n\ge b$ for some \gls{basecase} $b$. To do this we must prove first the \gls{basecase} and then the \gls{inductivestep}. Once we have proven \emph{both} of these we are able to conclude that $P(n)$ holds for all $n\in\mathbb{N}$, $n\ge b$.
+
+\subsection{Proving the Base Case}
+
+To prove the \gls{basecase} is true for a value $b$ we just substitute in the value we've chosen into both the left-hand side and right-hand side and show that they equate to the same thing. By doing this we prove $P(b)$ and as a result the \gls{basecase}.
+
+\subsection{Proving the Inductive Step}
+
+Here we assume that $P(j)$ is true for some arbitrary value $j\ge b$, and it doing so we form our \gls{inductivehypothesis}. Then, using the hypothesis we just formed, we try to {\bf prove} that $P(j+1)$ is true. Often we split $P(j+1)$ into $P(j)$ and the value of the expression for $n=j+1$, which we then rearrange to achieve an expression equivalent to $P(j+1)$ --- this works as proof because we've assumed that $P(j)$ is true.
+
+\subsection{Concluding the Property Holds}
+
+If we have successfully proved that the property $P(n)$ holds for both the base case $b$ and for the inductive step, we can conclude that as the property $P(j+1)$ holds if it also holds for $P(j)$ and because we have shown $P(b)$ to be true then the property is true for all $n\ge b$ by induction.
