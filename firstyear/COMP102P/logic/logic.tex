@@ -9,6 +9,8 @@
 \usepackage{caption}
 \usepackage{listings}
 
+\usepackage{qtree}
+
 \makeatletter
 \def\BState{\State\hskip-\ALG@thistlm}
 \makeatother
@@ -24,8 +26,7 @@
   escapeinside={\%*}{*)},          % if you want to add LaTeX within your code
   extendedchars=true,              % lets you use non-ASCII characters; for 8-bits encodings only, does not work with UTF-8
   frame=single,                    % adds a frame around the code
-  keepspaces=true,                 % keeps spaces in text, useful for keeping in
-dentation of code (possibly needs columns=flexible)
+  keepspaces=true,                 % keeps spaces in text, useful for keeping indentation of code (possibly needs columns=flexible)
   keywordstyle=\color{blue},       % keyword style
   language=Octave,                 % the language of the code
   otherkeywords={*,...},           % if you want to add more keywords to the set
@@ -43,6 +44,9 @@ dentation of code (possibly needs columns=flexible)
 }
 
 \usepackage[normalem]{ulem}
+
+\usepackage{amsthm}
+\newtheorem*{example}{Example}
 
 \usepackage{glossaries}
 \makeglossaries

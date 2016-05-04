@@ -11,3 +11,52 @@ If you have the proposition on its own, it's known as an \gls{atomicfmla}. Howev
     \item $\neg(p \land q)$
     \item $(\neg p \to (\neg q \lor r))$
 \end{itemize}
+
+\subsection{Backus-Naur Form}
+\gls{bnf} (BNF) is used to define syntax, and in this case we'll use it to properly define what is a proper propositional formula and what isn't. Okay, here goes:
+\vspace{0.5cm}
+
+\texttt{proposition ::= $p_0 | p_1 | p_2 | \dots$\\
+bin\_connective ::= $\land | \lor | \to | \leftrightarrow$\\
+formula ::= proposition $|$ $\neg$ formula $|$ (formula bin\_connective formula) }
+
+\vspace{0.5cm}
+So, er, the \texttt{::=} symbol is just assignment like in programming. And then the $|$ symbol just means it can be either of the definitions. Simple!
+
+A couple of things to note. See how \texttt{formula} can be defined in terms of itself? That allows you to have rather complex formulas that are still valid. The other thing to note is that if two formulas are used with a binary connective, they \textbf{must} be surrounded by brackets to be valid. No exceptions.
+
+\subsection{Convert English to Logic}
+We may need to know how to convert a normal sentence into a weird logical formula, so here is a couple of examples.
+
+\begin{example}
+    If it rains today, I won't go to the lecture.\\
+    \\
+    $r$\textendash It rains today.\\
+    $g$\textendash I go to the lecture.\\
+    \\
+    $(r \to \neg g)$
+\end{example}
+
+It's pretty easy to be honest, just remember to define your \glspl{proposition}.
+
+\subsection{Parsing}
+So, in a roundabout way, the notes tell you that propositional formulas can only contain a certain selection of characters, called an \gls{alphabet}. This is limited to:
+
+$$\Sigma = \{ \neg, \land, \lor, \to, \gets, \leftrightarrow, (, ), p_0, p_1, \dots\}$$
+
+So with that, it's kinda easy to write your own parser, right? Probably, you've already done it by now for coursework! But just as a refresher, you need to use a parse tree. Let's make a formula and call it $\phi$ of all things. Let $\phi = \neg((p \leftrightarrow q) \lor (\neg p \to q))$. This is what its parse tree would look like:
+
+\Tree [.$\neg$
+    [.$\lor$
+        [.$\leftrightarrow$
+            $p$
+            $q$
+        ]
+        [.$\to$
+            [.$\neg$
+                $p$
+            ]
+            $q$
+        ]
+    ]
+]
