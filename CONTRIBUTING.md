@@ -1,0 +1,3 @@
+# Helping out with the notes
+
+You're more than welcome to help with the notes. We're using LaTeX to compile the document, as well as the `makeglossaries` command to compile glossaries. Please make liberal use of the glossary system because it is really handy for when you're trying to understand key words. You use the `\gls{key}` command to reference a glossary item, and check out the `glossary.tex` file to see how a glossary entry is defined. Note the lack of final full stop, this is because the glossaries package will add one for you. Also, don't use plurals for the name, since this is added automatically. Have fun!
