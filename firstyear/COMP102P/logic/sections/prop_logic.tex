@@ -62,3 +62,18 @@ So with that, it's kinda easy to write your own parser, right? Probably, you've 
 ]
 
 That's a little complicated, but you can see where it's coming from right? It shows very easily how the logic is combined to form the full formula.
+
+\section{Semantics}
+Semantics is all about the meaning apparently. This involves assigning truthy or falsy values to the propositions in order to make a formula true or false. Yeah okay, it's a bit of a long winded way of doing things, but welcome to theory! You use something called a \gls{valuation}, a function normally represented by the Greek letter iota ($\iota$). So, an example of what this coule be like would be:
+
+\begin{alignat*}{2}
+    \iota:p&\longmapsto&\top\\
+    q&\longmapsto&\bot\\
+    r&\longmapsto&\bot
+\end{alignat*}
+
+So, you got that. So what? In the world of theory where everything is defined properly, you have to extend this to a \gls{truthfcn}, which will pretty much always be $\upsilon$. Dem computer scientists love Greek letters. The truth function can be applied to any propositional formula that uses the letters you provided, which makes it kinda neat. You can then say that, if using the valuation above, that $\upsilon(p) = \top$ for instance. There's a bunch of 'base cases' for using this with bigger functions, which are pretty much common sense, so why am I writing them? (oh yeah, borrowing them from the notes, again) Okay, so let's say you made some propositional formulas, and named them $\phi$ and $\psi$. You then work out whatever $\upsilon(\phi)$ and $\upsilon(\psi)$ are, or maybe you don't, and then these following things apply ($\iff$ means iff):
+
+$$\upsilon(\neg\phi) = \top \iff \upsilon(\phi) = \bot$$
+$$\upsilon(\phi \lor \psi) = \bot \iff \upsilon(\phi) = \upsilon(\psi) = \bot$$
+$$\upsilon(\phi \land \psi) = \top \iff \upsilon(\phi) = \upsilon(\psi) = \top$$
