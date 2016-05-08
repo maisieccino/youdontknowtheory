@@ -303,6 +303,14 @@ The switch statement is a kinda neat way of testing for many different values wi
     }
 \end{lstlisting}
 
+\subsection{A Big Hand For Our Cast}
+Type casting is a handy way of converting certain variable types to another. It's useful for converting floats to integers, for example.
+\begin{lstlisting}[language=C]
+    double x = 4.5;
+    int y = (int) x;
+    // y is now 4.
+\end{lstlisting}
+
 \subsection{A Couple Of Pointers}
 So this is the one that makes people cry. And honestly, pointers shouldn't if you treat them right! A pointer is kinda what you'd imagine it to be, a type of variable that stores a memory address, so it literally "points" to an actual variable. When you create a variable normally, e.g. \texttt{int why = 10}, you're asking what's called the "heap" memory for some space to store an integer. It'll get the memory address of that space it's been allocated, so that the program can then write into that space.
 
@@ -338,7 +346,53 @@ You have a pointer which is nice, but it'd be rather swish if you could get the 
     // ARE YOU A MAGICIAN
 \end{lstlisting}
 
-The cool thing about this is that you can use pointers to pass in variables to functions rather than just their values, so you can change them in-situ. They also have their uses in arrays. Say whaaaat? You heard me, arrays use pointers already. The index format (\texttt{array[10]}) is just syntactic sugar for \texttt{*(array + 10)}, which means get the address of array, and add 10 to it, then return whatever's stored there (array items are stored in adjacent memory locations, fortunately). This is why you may see arrays passed into functions or what have you as something like \texttt{int *some\_array} if the length isn't known, or how strings are passed as \texttt{char *my\_string}
+The cool thing about this is that you can use pointers to pass in variables to functions rather than just their values, so you can change them in-situ. They also have their uses in arrays. Say whaaaat? You heard me, arrays use pointers already. The index format (\texttt{array[10]}) is just syntactic sugar for \texttt{*(array + 10)}, which means get the address of array, and add 10 to it, then return whatever's stored there (array items are stored in adjacent memory locations, fortunately). This is why you may see arrays passed into functions or what have you as something like \texttt{int *some\_array} if the length isn't known, or how strings are passed as \texttt{char *my\_string}.
+
+\subsubsection{Pass By Reference}
+Whenever you use a variable in a parameter for a function, you're giving the function the value of the variable rather than the variable itself. But you can change this if you wish, by passing the variable pointer instead. Let's look at this interesting example.
+\begin{lstlisting}[language=C]
+void add_five(int *num) {
+    *num += 5;
+}
+
+int main() {
+    int x = 10;
+    add_five(&x); // address of x is passed into add_five since it needs a pointer.
+    // The value of x is now 15.
+}
+\end{lstlisting}
+Hey, that ain't too hard!
+
+\subsection{Rollin' In The Heap}
+So it's all well and good doing that stuff above with pointers, but you can also use the blighters to create and destroy variables in memory as you like. Introducing the heap, a section of memory that's dedicated \textit{just} for this purpose.
+\subsubsection{Get Memory From The heap}
+\begin{lstlisting}[language=C]
+    #include <stdlib.h>
+
+    int *my_ptr = (int *) malloc (sizeof (int));
+\end{lstlisting}
+What you've got here, is that a new int pointer is created, which points at some new allocated memory. The \texttt{malloc()} literally means "Memory ALLOCate", and accepts a size as its parameter; in this case we're using the \texttt{sizeof()} function to get the size of an int type. Finally, we use a type cast to make the pointer into an int pointer. But why stop there? Let's make an array using heap memory, since that's a thing right?
+\begin{lstlisting}[language=C]
+    #include <stdlib.h>
+
+    int arr_size = 10;
+    float *array = (float *) malloc (arr_size * sizeof(float));
+
+    array[0] = 10.4; // first element
+    *(array + 2) = -23.653; // third element (counts from 0 right?)
+\end{lstlisting}
+
+\subsubsection{Destroy Memory From The Heap}
+You're done with your data and you now want to release that piece of memory back to the heap to be used again. This is good because if you never release to the heap, you can run out of heap memory and you will cry.
+\begin{lstlisting}[language=C]
+    #include <stdlib.h>
+
+    int * p = (int *) malloc( sizeof (int) );
+    *p = 10;
+    // blah blah blah
+    free(p);
+    // the address of p can now be overwritten
+\end{lstlisting}
 
 \subsection{In N' Out}
 Programs are rather more handy when a user is able to interact with it. It does bring you some extra problems though (the user is an idiot), but that's well outside the scope of this course. Let's do some output. You'll need to include the \texttt{stdio.h} library for these functions.
