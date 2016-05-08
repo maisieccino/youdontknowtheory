@@ -7,6 +7,9 @@ CHammond made some decent notes on most of this stuff if you want a quick but th
 \section{Basics}
 C is an \gls{imperative} language, which means that you write programs by saying "do this!" then "do that!". Things get a little more complex than that when you're dealing with bigger programs (Linux kernel, anyone?) but essentially that's what it's about. Here's a quick rundown of things you can do.
 
+\subsection{Literals}
+Simply just the value. Using a literal is known as hard-coding as it cannot be changed when the program is running.
+
 \subsection{Variables}
 \Glspl{variable} are like, super important. They are the bread and butter of imperative programming, they are ways of storing values so that you can use them again or manipulate them however you desire. Let's look at a few different variable types and how you can define them. I'll also point out here that comments (notes you can add to the code that have no effect on the running) look like \texttt{/* this */} or like \texttt{// this}.
 \begin{lstlisting}[language=C]
@@ -25,8 +28,8 @@ bool amIRetakingTheYear = true;  // true or false, you need stdbool.h though.
 
 Hey look at that, you can write C! To define a variable, you add the type you want in front of the name you're going to give it. You can then, if you want, assign it a value with the assignment (\texttt{=}) operator, or just leave it. To then access that variable or its value again, you only need its name.
 
-\subsection{Simple Operations}
-Operations are built-in mathsy things you can perform on variables. Here's a few you can do:
+\subsection{Simple Operators}
+\Glspl{operator} are built-in mathsy things you can perform on variables. Here's a few you can do:
 \subsubsection{Assignment}
 Sets the value of a variable.
 \begin{lstlisting}[language=C]
@@ -172,3 +175,201 @@ Maybe there's some code you don't want to run all the time. If statements are yo
         give_up();
     }
 \end{lstlisting}
+
+It's pretty self-explanatory. If the logical statement holds true, then the code in the first block is used. If it is false, then the else statement is used. In this case above, the else statement contains another if-else statement, testing for another statement. So only if both logical statements are false, then the last code block will be used.
+
+But what is a logical statement? It's an expression that returns true or false. For this, we can use \glspl{logicalop} to take variables and reduce them to something boolean. Let's explore them.
+
+\subsubsection{Equals Operator}
+The equals operator takes two variables, literals, functions or whatever of the same type and returns true if they are equal, and false if not. You type \texttt{==} to use it.
+\begin{lstlisting}[language=C]
+    int my_num = 5;
+    if (my_num == 5) {
+        // this will execute as my_num is equal to 5.
+    }
+\end{lstlisting}
+
+Don't use this for strings! You should use the \texttt{strcmp()} function from stdlib.h for that.
+
+\subsubsection{Not Equals Operator}
+Does the exact opposite of what equals does, funnily enough. This is represented with \texttt{!=}. Do you really need an example for this?
+
+\subsubsection{Less Than (Or Equal To) Operator}
+Given two values, you can test if one is less than the other. You can use \texttt{<} for just that, or you can be bold and use \texttt{<=} to additionally make the statement true if the two values are equal. Superb!
+\begin{lstlisting}[language=C]
+    int my_score = 10;
+    if (my_score < 30) {
+        give_up(); // this will be executed.
+    }
+\end{lstlisting}
+
+\subsubsection{Greater Than (Or Equal To) Operator}
+Uhm, it's the opposite of the less than operator.
+
+\subsubsection{Logical Not Operator}
+This will invert a logical statement or boolean value given to it, represented just by the \texttt{!} character.
+\begin{lstlisting}[language=C]
+    if (!true) {
+        // this will NEVER run since !true becomes false.
+        // Why you would write code like this, I don't know.
+        // But if you ever do, I recommend you take a cold hard
+        // look at your code and wonder just why.
+    }
+\end{lstlisting}
+
+\subsubsection{Logical Or Operator}
+This takes two logical statements and will return true if \textit{either} of them are true. You use the \texttt{||} (two pipes) characters for this.
+\begin{lstlisting}[language=C]
+    int gimme_five() {
+        return 5;
+    }
+
+    int x = 10;
+    if ((x == 10) || (x == gimme_five())) {
+        // x == 10 so this is true. Never mind that x is not equal
+        // to the output of gimme_five()
+    }
+\end{lstlisting}
+
+\subsubsection{Logical And Operator}
+This returns true only if both statements are true. This is represented with the \texttt{\&\&} characters.
+\begin{lstlisting}[language=C]
+    bool do_you_need_this(int score, bool failed) {
+        if ( (score > 30) && !failed) {
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
+\end{lstlisting}
+
+So nice one, you can do that now!
+
+\section{Intermediate Programming}
+Oh, so you think you're a big guy now? You've finished the basics stuff and you want something more, something a little more complex? Well you've come to the right place buster, it's time for some intermediate C.
+
+\subsection{Loops}
+Loops are great because you can repeat stuff many times without having to write it out each time. You can repeat stuff without having to write it out each time, which is great.
+
+\subsubsection{While Loop}
+While loops are run infinitely while the logical statement is true. So you gotta be careful otherwise it can run forever if your logical statement doesn't change. Unless you want that to happen, you maverick you.
+\begin{lstlisting}[language=C]
+    int i = 0;
+    while (i < 10) {
+        printf("Hello");
+    }
+    // prints out HelloHelloHelloHelloHelloHelloHelloHelloHelloHello
+\end{lstlisting}
+
+If you are a true renegade, you can put the logical statement at the end to create a "do-while" loop. This is then checked at the \textit{end} of each loop, which means that the loop is guaranteed to run at least once.
+\begin{lstlisting}[language=C]
+    int i = 0;
+    do {
+        printf("Hello");
+    } while(i > 1);
+    // prints out Hello
+\end{lstlisting}
+
+\subsubsection{For Loop}
+Oh, now you've done it. So you're not content enough with just a while loop; you want something that looks more badass. So I give you the for loop. You have statement to run before the loop, a state to check at the beginning of each loop, and a statement to run at the end of each loop. It looks a bit like this.
+\begin{lstlisting}[language=C]
+    for (inital_thing(); test_this(); at_the_end_of_each_loop();) {
+        do_something();
+    }
+
+    // In practice:
+    int i;
+    for (i = 0; i < 10; i++) {
+        printf("%d",i);
+    }
+    // Prints "12345678910"
+\end{lstlisting}
+
+You get me? You have me got? Good.
+
+\subsection{Bait And Switch}
+The switch statement is a kinda neat way of testing for many different values without having some massive if-else if-else if and so on. You specify a "switch", and then test for values, which \textbf{must} be literals, as well as a default. Each 'case' as they are known must end with a \texttt{break} so that the code exits the switch statement rather than go down to the next one.
+\begin{lstlisting}[language=C]
+    char input = get_some_input();
+
+    switch (input) {
+        case 'a': menu_option_1();
+                  break;
+        case 'b': printf("2B or not 2B");
+                  break;
+        default:  printf("Nice work, you mug.");
+                  break;
+    }
+\end{lstlisting}
+
+\subsection{A Couple Of Pointers}
+So this is the one that makes people cry. And honestly, pointers shouldn't if you treat them right! A pointer is kinda what you'd imagine it to be, a type of variable that stores a memory address, so it literally "points" to an actual variable. When you create a variable normally, e.g. \texttt{int why = 10}, you're asking what's called the "heap" memory for some space to store an integer. It'll get the memory address of that space it's been allocated, so that the program can then write into that space.
+
+What is a memory address you ask? Memory on a computer is divided into loads of little sections of a certain size, and they are numbered so that that space can be remembered. Think of each space like a car parking space, and the address is the number painted on the floor in front of the space, and the data is the car... I'm not sure where I'm going with this analogy.
+
+The cool thing with C is, you can very much fiddle with the memory addresses to your liking (the memory given to your program by the operating system, that is). But as a wise Uncle Ben once said, with great power comes great responsibility. And you really do have the potential to mess up your program with pointers (although your computer is safe).
+
+General pointer stuff is baked into the C language, however you may need to use the \texttt{stdlib.h} library to access some of the memory functions.
+
+\subsubsection{Get Thine Address}
+The \texttt{\&} operator gets the address of a variable. No man, nothing to do with the logical AND operator! You put it in front of a variable name to return its address.
+\begin{lstlisting}[language=C]
+    int x = 101;
+    printf("%d\n", &x); // this prints out 0x4328db or some such thing.
+\end{lstlisting}
+
+\subsubsection{Pointer Type}
+A pointer type is completely different to its variable bretheren. It just stores a pointer and nothing else, although the type of pointer determines just how big the memory space that it's pointing at is. A pointer type is defined using the asterisk, in the form \texttt{<type> *<var\_name>}.
+\begin{lstlisting}[language=C]
+    int some_val = 346;
+    int *my_ptr = &some_val;
+    // my_ptr now points at the location of some_val
+\end{lstlisting}
+
+\subsubsection{Dereference the pointer}
+You have a pointer which is nice, but it'd be rather swish if you could get the value it's pointing at right? Hence you need the dereference operator. You have to use the asterisk before the variable's name, and bam there you go.
+\begin{lstlisting}[language=C]
+    int some_val = 645;
+    int *my_ptr = &some_val;
+    some_val += 10;
+    printf("my_ptr looks at %d\n", *my_ptr);
+    // prints out "my_ptr looks at 655"
+    // ARE YOU A MAGICIAN
+\end{lstlisting}
+
+The cool thing about this is that you can use pointers to pass in variables to functions rather than just their values, so you can change them in-situ. They also have their uses in arrays. Say whaaaat? You heard me, arrays use pointers already. The index format (\texttt{array[10]}) is just syntactic sugar for \texttt{*(array + 10)}, which means get the address of array, and add 10 to it, then return whatever's stored there (array items are stored in adjacent memory locations, fortunately). This is why you may see arrays passed into functions or what have you as something like \texttt{int *some\_array} if the length isn't known, or how strings are passed as \texttt{char *my\_string}
+
+\subsection{In N' Out}
+Programs are rather more handy when a user is able to interact with it. It does bring you some extra problems though (the user is an idiot), but that's well outside the scope of this course. Let's do some output. You'll need to include the \texttt{stdio.h} library for these functions.
+
+\subsubsection{printf}
+\texttt{printf()} lets you write out (or 'print' as the oldies call it) text to what's known as STDOUT. Normally this is just the screen, so let's go with that. You give printf a format string, followed by variables you want to output.
+\begin{lstlisting}[language=C]
+    int x = 10;
+    printf("The pointless value of x is %d\n", x);
+    // prints out "The pointless value of x is 10"
+\end{lstlisting}
+
+\subsubsection{Format Strings}
+Let's talk more about the format strings and why they look scary. You've got your standard text, as well as conversion characters and special characters. These are the common special characters:
+\begin{itemize}
+    \item \textbf{\textbackslash~n} - Newline character, use this to start a new line.
+    \item \textbf{\textbackslash~r} - Return character, if you're on Windows then this will probably be of use to you.
+    \item \textbf{\textbackslash~0} - Null character, this is at the end of every string.
+    \item \textbf{\textbackslash~t} - tab character, if you want to align your text all neat and that.
+\end{itemize}
+
+Want an actual backslash? Just use two backslashes next to each other.
+
+Now, these are the conversion characters:
+\begin{itemize}
+    \item \textbf{\%~s} - String.
+    \item \textbf{\%~d} - Integer.
+    \item \textbf{\%~f} - Floating point number.
+    \item \textbf{\%~c} - Character.
+\end{itemize}
+You can also combine these with a number to represent a certain number of characters to display. So, \texttt{\%4d} would be a nice way of displaying currency (probably). Want to use an actual percentage sign? Just use it twice again!
+
+\subsubsection{scanf}
+\texttt{scanf()} is one way of getting user input. It's the safest way of getting user text from
