@@ -1,1 +1,26 @@
-Predicate logic.
+Also known as first order logic. RIP you. But regretably we all have to get through this together, so lo and behold I'm going to attempt to do some predicate logic notes.
+
+\section{Relations And Functions}
+The amazing course structure means that you learn stuff well after you need it. In this case, you need to know about relations and functions in MATH6301 for this module, which is taught first. Huh? Yeah, I know, but hopefully by the time you finally decided to revise for COMP102P you would have covered at least a bit of relations and functions.
+
+So alright, there's a lot of set theory here. What is a set you ask? It's simply a collection of things. You could make yourself a set $T$ which contains the numbers 1 to 10, so $T = \{1, 2, 3, 4, 5, 6, 7, 8, 9, 10\}$. You can have the set $\mathbb{R}$ which is the set of any real number that exists, cool. You could have the set of all fruits, $F$, if you're really that inclined. Well, where does that leave you?
+
+There's the \gls{cartesianprod}, which is the set of all pairs from a set. So, let's make a set $S = \{a, b, c, d\}$. Therefore:
+
+\[
+    S \times S = \{(a,b), (a,c), (a,d), (a,e), (b,c), (b,d), (b,e), (c,d), (c,e), (d,e)\}
+\]
+
+You can then have these things called binary relations, which are sets of \textbf{some} pairs from the set. So for a binary relation $R$, $R \subseteq D \times D$. Or basically, a binary relation is some or all of the pairs you could get from the set. But why stop at binary relations? Perhaps you want to be bold and have a ternary relation (a triple). Maybe you want a unary relation (single item). Or perhaps, the true mavericks out there want an n-ary relation. Any of this is possible with the power of relations.
+
+\[
+    U = \{(a,b,c), (b,c,e), (c,d,e)\}
+\]
+
+But what does a relation \textit{mean}? Uh, who knows. But Hirsch gives the example of a binary relation being like a directed graph, where the nodes are the elements in the original set and the edges are the relations. Dunno, it helped me. Although who knows how that works when you have ternary relations and beyond.
+
+\subsection{Functions}
+Discrete maths puts the function in dysfunctional. The functions you see here are nothing like the functions you see when programming, although they perform a similar task. So you can have an n-ary function $f$ which takes $n$ arguments. So...
+\[
+    f : D^n \mapsto D
+\]
