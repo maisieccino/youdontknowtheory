@@ -19,8 +19,46 @@ You can then have these things called binary relations, which are sets of \textb
 
 But what does a relation \textit{mean}? Uh, who knows. But Hirsch gives the example of a binary relation being like a directed graph, where the nodes are the elements in the original set and the edges are the relations. Dunno, it helped me. Although who knows how that works when you have ternary relations and beyond.
 
+Okay, let's put this into practice. So a \textbf{binary} relation is \gls{reflexive} if every element is related to itself. Therefore, for a binary relation $R$ that applies to the set $S$, it is reflexive if $\forall s \in S, (s,s) \in R$. As an example, you could say that the relation is two people knowing each other, and everyone knows themselves, therefore it is reflexive.
+
+$R$ is called \gls{symmetric} if the order of the two items doesn't matter; for instance the edges in an \textbf{undirected} graph, or the "knowing someone" relation from earlier. In mathsy terms, $\forall s,t \in S, (s, t) \in R \implies (t, s) \in R$; for all pairs in the set, if the pair belongs to the relation it's implied that the pair the other way round also belongs to the relation.
+
+$R$ is \gls{transitive} if one element is related to another, and that other is related to a further element, then the first element is related to the last one. So, one fair example would be if two nodes were connected (a path exists from one to the other), that would be a transitive relation. Orrrr.... $\forall s, t, u \in S, (s, t) \in R $ \& $ (t, u) \in R \implies (s, u) \in R$.
+
+If $R$ is reflexive, symmetric and transitive, it is called an equivalence relation. Remember this.
+
 \subsection{Functions}
 Discrete maths puts the function in dysfunctional. The functions you see here are nothing like the functions you see when programming, although they perform a similar task. So you can have an n-ary function $f$ which takes $n$ arguments. So...
 \[
     f : D^n \mapsto D
 \]
+
+One such binary function is addition. You'd define it with its arity (in this case 2), and what it maps:
+\[
+    +^2 : \mathbb{R}^2 \mapsto \mathbb{R}
+\]
+
+More on this later.
+
+\section{Syntax}
+In predicate logic, you can write stuff that is otherwise impossible with propositional logic. Take the statement:
+
+\begin{center}
+    \textit{If it is raining, and today is not Friday, I won't go to the lecture.}
+\end{center}
+
+Bad advice, of course. Here is what this would look like in predicate logic:
+\[
+    \forall x \in D ((R(x) \land \neg(x = \text{Friday})) \to \neg G(x))
+\]
+
+Let's analyse this:
+\begin{itemize}
+    \item \textbf{$\forall x$} means "for all possible values of $x$, this applies..."
+    \item \textbf{$D$} is simply the set of days in the academic year (sets can be whatever we want as long as we define them!)
+    \item \textbf{$R$} is the "unary predicate", that represents the relation of all the days where it is raining.
+    \item \textbf{$G$} is the unary predicate that represents me going to the lecture.
+    \item Oh, and there was the binary predicate, $=$, which represents all the pairs which are the same.
+\end{itemize}
+
+So that's all well and good, but it seems like it would be a pain in the bottom to have to define all of these things over and over again (these "things" are actually called \textit{terms} by the way). Therefore, in predicate logic, you have to define a language, which is the logic way of saying what formulas are chill with you and which are not.
